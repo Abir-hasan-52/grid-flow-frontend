@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Logo from "@/components/shared/Logo";
+import { Button } from "@/components/ui/button";
 
 const routes = [
   { name: "Home", url: "/" },
@@ -10,12 +11,7 @@ export default function Header() {
   return (
     <header className="w-full h-16 border-b">
       <div className="container mx-auto flex h-full items-center justify-between px-4">
-        
-        <Logo
-          showText={true}
-          size="md"
-          href="/"
-        />
+        <Logo showText={true} size="md" href="/" />
 
         <nav className="flex items-center gap-6">
           {routes.map((route) => (
@@ -28,7 +24,11 @@ export default function Header() {
             </Link>
           ))}
         </nav>
-
+        <div>
+          <Button variant="outline">
+            <Link href="/login">Login</Link>
+          </Button>
+        </div>
       </div>
     </header>
   );
