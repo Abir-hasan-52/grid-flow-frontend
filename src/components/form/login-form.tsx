@@ -147,7 +147,7 @@ export default function LoginForm() {
         <Button type="submit" className="w-full" disabled={isLoginPending}>
           {isLoginPending ? (
             <>
-              <Spinner /> Loading...
+              <Spinner /> Login...
             </>
           ) : (
             "Login"
