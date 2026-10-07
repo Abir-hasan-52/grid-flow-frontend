@@ -7,6 +7,7 @@ import { useGetMe, useLogout } from "@/hooks";
 import { toast } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
+import { useGetArea } from "@/hooks/area.hook";
 
 export default function Header() {
   const routes = [
@@ -16,6 +17,9 @@ export default function Header() {
   const router = useRouter();
   const { data, isLoading } = useGetMe();
   console.log(data);
+  // test area hook
+  // const {data: areaData,isLoading: isAreaLoading} = useGetArea();
+  // console.log(areaData)
   const { mutate: logout, isPending: isLogoutPending } = useLogout();
   const  queryClient = useQueryClient();
 
@@ -63,7 +67,15 @@ export default function Header() {
               <Button variant="outline">Login</Button>
             </Link>
           )}
-          {!isLoading && data && <Button variant="destructive" onClick={handleLogout}>Logout</Button>}
+          {!isLoading && data && (
+            <Button
+              variant="destructive"
+              onClick={handleLogout}
+              disabled={isLogoutPending}
+            >
+              {isLogoutPending ? "Logging out..." : "Logout"}
+            </Button>
+          )}
         </div>
       </div>
     </header>
