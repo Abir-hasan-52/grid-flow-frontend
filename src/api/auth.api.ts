@@ -9,3 +9,7 @@ export function userLogout() {
 export function getMe() {
   return apiClient("/auth/me");
 }
+
+export function googleOAuthLogin(payload: { googleId: string }) {
+  return apiClient("/auth/google", {method: "POST", body: payload });
+}

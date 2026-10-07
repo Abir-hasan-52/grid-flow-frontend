@@ -1,5 +1,5 @@
 /** biome-ignore-all assist/source/organizeImports: <explanation> */
-import { getMe, userLogin, userLogout } from "@/api";
+import { getMe, googleOAuthLogin, userLogin, userLogout } from "@/api";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 export function useLogin(){
@@ -18,4 +18,9 @@ export function  useGetMe(){
          queryFn:getMe,
          retry: false,
     })
+}
+export function useGoogleOAuthLogin() {
+  return useMutation({
+    mutationFn: googleOAuthLogin,
+  });
 }
