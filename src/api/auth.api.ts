@@ -13,3 +13,8 @@ export function getMe() {
 export function googleOAuthLogin(payload: { googleId: string }) {
   return apiClient("/auth/google", {method: "POST", body: payload });
 }
+export function registerUser(payload: {name: string; email: string; password: string,areaId: string }) {
+    return apiClient("/auth/register", {method: "POST", body: payload});
+}
+
+ 
