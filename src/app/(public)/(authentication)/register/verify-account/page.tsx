@@ -1,46 +1,39 @@
 import Image from "next/image";
-import Link from "next/link";
 
 import Logo from "@/components/shared/Logo";
-import RegisterForm from "@/components/form/register-form";
+import VerifyAccountForm from "@/components/form/verify-account-form";
+import { Suspense } from "react";
 
-export default function RegisterPage() {
+export default function VerifyAccountPage() {
   return (
     <main className="grid min-h-svh lg:grid-cols-2">
-      {/*    Left Side - Register Form */}
+      {/* 
+          Left Side - Verify Form
+     */}
       <section className="flex flex-col px-6 py-8 md:px-10 lg:px-12">
         {/* Logo */}
         <div className="flex justify-center md:justify-start">
           <Logo showText size="md" href="/" />
         </div>
 
-        {/* Register Content */}
+        {/* Verify Content */}
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-md space-y-8">
             {/* Heading */}
             <div className="space-y-2 text-center">
               <h1 className="text-3xl font-bold tracking-tight">
-                Create an account
+                Verify your account
               </h1>
 
               <p className="text-sm text-muted-foreground">
-                Join GridFlow and manage your power connection
+                Enter the verification code sent to your email address.
               </p>
             </div>
 
-            {/* Register Form */}
-            <RegisterForm />
-
-            {/* Login Link */}
-            <p className="text-center text-sm text-muted-foreground">
-              Already have an account?{" "}
-              <Link
-                href="/login"
-                className="font-medium text-primary underline-offset-4 hover:underline"
-              >
-                Sign in
-              </Link>
-            </p>
+            {/* Verify Account Form */}
+            <Suspense fallback={<div>Loading...</div>}>
+              <VerifyAccountForm />
+            </Suspense>
           </div>
         </div>
 
@@ -50,8 +43,7 @@ export default function RegisterPage() {
         </p>
       </section>
 
-      {/* 
-          Right Side - Image*/}
+      {/*  Right Side - Image*/}
       <section className="relative hidden overflow-hidden bg-muted lg:block">
         <Image
           src="/register-bg.png"
@@ -70,19 +62,18 @@ export default function RegisterPage() {
         <div className="absolute inset-x-0 bottom-0 p-10 text-white xl:p-14">
           <div className="max-w-lg space-y-4">
             <div className="inline-flex rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium backdrop-blur-md">
-              Smart Power Management
+              Account Verification
             </div>
 
             <h2 className="text-3xl font-bold tracking-tight xl:text-4xl">
-              Power smarter.
+              One step away.
               <br />
-              Live better.
+              Welcome to GridFlow.
             </h2>
 
             <p className="max-w-md text-sm leading-6 text-white/75">
-              Create your GridFlow account to monitor your
-              power connection, stay informed about outages,
-              and manage your energy usage smarter.
+              Verify your email address to activate your GridFlow account and
+              start managing your power connection.
             </p>
           </div>
         </div>

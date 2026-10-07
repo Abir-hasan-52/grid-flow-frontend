@@ -59,6 +59,7 @@ export default function LoginPage() {
           priority
           sizes="50vw"
           className="object-cover"
+          unoptimized
         />
 
         {/* Overlay */}

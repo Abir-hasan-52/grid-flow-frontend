@@ -43,6 +43,7 @@ export default function Logo({
         height={currentSize.image}
         priority
         className="object-contain rounded-full"
+        unoptimized
       />
 
       {showText && (

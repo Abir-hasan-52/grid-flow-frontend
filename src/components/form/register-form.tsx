@@ -25,6 +25,7 @@ import { useRegisterUser } from "@/hooks";
 import { useGetArea } from "@/hooks/area.hook";
 import { registerSchema } from "@/validation";
 import GoogleLoginButton from "../shared/GoogleLogin";
+// import { URLSearchParams } from "next/dist/compiled/@edge-runtime/primitives";
 
 type Area = { id: string; name: string };
 
@@ -88,11 +89,7 @@ function PasswordInput({
         className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
         aria-label={visible ? "Hide password" : "Show password"}
       >
-        {visible ? (
-          <EyeOff className="size-4" />
-        ) : (
-          <Eye className="size-4" />
-        )}
+        {visible ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
       </Button>
     </div>
   );
@@ -131,36 +128,37 @@ export default function RegisterForm() {
     },
 
     onSubmit: ({ value }) => {
-      register(
-        {
-          name: value.name,
-          email: value.email,
-          password: value.password,
-          areaId: value.areaId,
-        },
-        {
-          onSuccess: () => {
-            toast.add({
-              title: "Registration Successful",
-              description: "Your account has been created successfully.",
-              type: "success",
-            });
+      const registerValue = {
+        name: value.name,
+        email: value.email,
+        password: value.password,
+        areaId: value.areaId,
+      };
 
-            router.replace("/login");
-          },
+      register(registerValue, {
+        onSuccess: () => {
+          toast.add({
+            title: "Registration Successful",
+            description: "please check your email for verification and login.",
+            type: "success",
+          });
 
-          onError: (error: any) => {
-            toast.add({
-              title: "Registration Failed",
-              description:
-                error?.response?.data?.message ??
-                error?.message ??
-                "Unable to create your account. Please try again.",
-              type: "error",
-            });
-          },
+          const params = new URLSearchParams({ email: registerValue.email });
+          router.push(`/register/verify-account?${params.toString()}`);
         },
-      );
+
+        onError: (error: any) => {
+          console.error("Registration failed:", error);
+          toast.add({
+            title: "Registration Failed",
+            description:
+              error?.response?.data?.message ??
+              error?.message ??
+              "Unable to create your account. Please try again.",
+            type: "error",
+          });
+        },
+      });
     },
   });
 
@@ -271,9 +269,7 @@ export default function RegisterForm() {
 
               return (
                 <Field data-invalid={isInvalid}>
-                  <FieldLabel htmlFor={field.name}>
-                    Confirm Password
-                  </FieldLabel>
+                  <FieldLabel htmlFor={field.name}>Confirm Password</FieldLabel>
 
                   <PasswordInput
                     id={field.name}
@@ -382,11 +378,7 @@ export default function RegisterForm() {
           </form.Field>
 
           {/* Register Button */}
-          <Button
-            type="submit"
-            className="w-full"
-            disabled={isRegisterPending}
-          >
+          <Button type="submit" className="w-full" disabled={isRegisterPending}>
             {isRegisterPending ? (
               <>
                 <Spinner />
@@ -398,7 +390,6 @@ export default function RegisterForm() {
           </Button>
         </FieldGroup>
       </form>
-
 
       <GoogleLoginButton />
     </div>
