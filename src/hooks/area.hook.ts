@@ -1,5 +1,5 @@
 import { getArea } from "@/api";
-import { AreaInterface } from "@/types/area.interface";
+import { AreaInterface } from "@/types/area.types";
 import { useQuery } from "@tanstack/react-query";
 
 export function useGetArea(params?:  AreaInterface) {

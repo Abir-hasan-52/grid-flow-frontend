@@ -1,6 +1,4 @@
 
-
-
 export interface AreaInterface {
   search?: string;
   page?: number;

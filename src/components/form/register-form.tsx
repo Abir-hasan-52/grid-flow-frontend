@@ -399,11 +399,6 @@ export default function RegisterForm() {
         </FieldGroup>
       </form>
 
-      {/* Divider */}
-      <div className="relative my-4 text-center text-sm text-muted-foreground">
-        <div className="absolute inset-0 top-1/2 border-t" />
-        <span className="relative z-10 bg-background px-2">or</span>
-      </div>
 
       <GoogleLoginButton />
     </div>
