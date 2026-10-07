@@ -7,18 +7,14 @@ import { useRouter } from "next/navigation";
 
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import {
-  Field,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from "../ui/field";
+import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 import { Spinner } from "../ui/spinner";
 import { toast } from "../ui/toast";
 
 import { loginSchema } from "@/validation";
 import { useLogin } from "@/hooks";
 import GoogleLoginButton from "../shared/GoogleLogin";
+import Link from "next/link";
 
 const demoAccounts = [
   {
@@ -48,10 +44,7 @@ export default function LoginForm() {
 
   const router = useRouter();
 
-  const {
-    mutate: login,
-    isPending: isLoginPending,
-  } = useLogin();
+  const { mutate: login, isPending: isLoginPending } = useLogin();
 
   const form = useForm({
     defaultValues: {
@@ -87,8 +80,7 @@ export default function LoginForm() {
 
             toast.add({
               title: "Login Failed",
-              description:
-                "Invalid email or password. Please try again.",
+              description: "Invalid email or password. Please try again.",
               type: "error",
             });
           },
@@ -98,10 +90,7 @@ export default function LoginForm() {
   });
 
   // Demo Account Login
-  const handleDemoLogin = (
-    email: string,
-    password: string,
-  ) => {
+  const handleDemoLogin = (email: string, password: string) => {
     login(
       {
         email,
@@ -125,8 +114,7 @@ export default function LoginForm() {
 
           toast.add({
             title: "Login Failed",
-            description:
-              "Unable to login with this demo account.",
+            description: "Unable to login with this demo account.",
             type: "error",
           });
         },
@@ -149,16 +137,13 @@ export default function LoginForm() {
           <form.Field name="email">
             {(field) => {
               const isInvalid =
-                field.state.meta.isTouched &&
-                !field.state.meta.isValid;
+                field.state.meta.isTouched && !field.state.meta.isValid;
 
               const error = field.state.meta.errors[0];
 
               return (
                 <Field data-invalid={isInvalid}>
-                  <FieldLabel htmlFor={field.name}>
-                    Email
-                  </FieldLabel>
+                  <FieldLabel htmlFor={field.name}>Email</FieldLabel>
 
                   <Input
                     id={field.name}
@@ -166,18 +151,14 @@ export default function LoginForm() {
                     type="email"
                     value={field.state.value}
                     onBlur={field.handleBlur}
-                    onChange={(e) =>
-                      field.handleChange(e.target.value)
-                    }
+                    onChange={(e) => field.handleChange(e.target.value)}
                     placeholder="Enter your email"
                     autoComplete="email"
                     aria-invalid={isInvalid}
                     disabled={isLoginPending}
                   />
 
-                  {isInvalid && error && (
-                    <FieldError errors={[error]} />
-                  )}
+                  {isInvalid && error && <FieldError errors={[error]} />}
                 </Field>
               );
             }}
@@ -187,31 +168,22 @@ export default function LoginForm() {
           <form.Field name="password">
             {(field) => {
               const isInvalid =
-                field.state.meta.isTouched &&
-                !field.state.meta.isValid;
+                field.state.meta.isTouched && !field.state.meta.isValid;
 
               const error = field.state.meta.errors[0];
 
               return (
                 <Field data-invalid={isInvalid}>
-                  <FieldLabel htmlFor={field.name}>
-                    Password
-                  </FieldLabel>
+                  <FieldLabel htmlFor={field.name}>Password</FieldLabel>
 
                   <div className="relative">
                     <Input
                       id={field.name}
                       name={field.name}
-                      type={
-                        showPassword
-                          ? "text"
-                          : "password"
-                      }
+                      type={showPassword ? "text" : "password"}
                       value={field.state.value}
                       onBlur={field.handleBlur}
-                      onChange={(e) =>
-                        field.handleChange(e.target.value)
-                      }
+                      onChange={(e) => field.handleChange(e.target.value)}
                       placeholder="Enter your password"
                       autoComplete="current-password"
                       aria-invalid={isInvalid}
@@ -224,16 +196,10 @@ export default function LoginForm() {
                       variant="ghost"
                       size="icon"
                       disabled={isLoginPending}
-                      onClick={() =>
-                        setShowPassword(
-                          (visible) => !visible,
-                        )
-                      }
+                      onClick={() => setShowPassword((visible) => !visible)}
                       className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
                       aria-label={
-                        showPassword
-                          ? "Hide password"
-                          : "Show password"
+                        showPassword ? "Hide password" : "Show password"
                       }
                     >
                       {showPassword ? (
@@ -244,20 +210,24 @@ export default function LoginForm() {
                     </Button>
                   </div>
 
-                  {isInvalid && error && (
-                    <FieldError errors={[error]} />
-                  )}
+                  {isInvalid && error && <FieldError errors={[error]} />}
                 </Field>
               );
             }}
           </form.Field>
 
+          {/* Forgot Password */}
+          <div className="text-right">
+            <Link
+              href="/forgot-password"
+              className="text-sm font-medium text-primary hover:underline"
+            >
+              Forgot Password?
+            </Link>
+          </div>
+
           {/* Login Button */}
-          <Button
-            type="submit"
-            className="w-full"
-            disabled={isLoginPending}
-          >
+          <Button type="submit" className="w-full" disabled={isLoginPending}>
             {isLoginPending ? (
               <>
                 <Spinner />
@@ -276,9 +246,7 @@ export default function LoginForm() {
       {/* Demo Accounts */}
       <div className="mt-8 space-y-4">
         <div className="text-center">
-          <p className="text-sm font-medium">
-            Demo Accounts
-          </p>
+          <p className="text-sm font-medium">Demo Accounts</p>
 
           <p className="mt-1 text-xs text-muted-foreground">
             Choose a role to login instantly
@@ -292,19 +260,10 @@ export default function LoginForm() {
               type="button"
               variant="outline"
               disabled={isLoginPending}
-              onClick={() =>
-                handleDemoLogin(
-                  account.email,
-                  account.password,
-                )
-              }
+              onClick={() => handleDemoLogin(account.email, account.password)}
               className="h-10 text-xs sm:text-sm"
             >
-              {isLoginPending ? (
-                <Spinner />
-              ) : (
-                account.role
-              )}
+              {isLoginPending ? <Spinner /> : account.role}
             </Button>
           ))}
         </div>
