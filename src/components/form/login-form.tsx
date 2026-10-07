@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useForm } from "@tanstack/react-form";
 import { Eye, EyeOff } from "lucide-react";
-import { GoogleLogin } from "@react-oauth/google";
 import { useRouter } from "next/navigation";
 
 import { Input } from "../ui/input";
@@ -13,13 +12,13 @@ import {
   FieldError,
   FieldGroup,
   FieldLabel,
-  FieldSeparator,
 } from "../ui/field";
 import { Spinner } from "../ui/spinner";
+import { toast } from "../ui/toast";
 
 import { loginSchema } from "@/validation";
-import { useGoogleOAuthLogin, useLogin } from "@/hooks";
-import { toast } from "../ui/toast";
+import { useLogin } from "@/hooks";
+import GoogleLoginButton from "../shared/GoogleLogin";
 
 const demoAccounts = [
   {
@@ -54,11 +53,6 @@ export default function LoginForm() {
     isPending: isLoginPending,
   } = useLogin();
 
-  const {
-    mutate: googleLogin,
-    isPending: isGoogleLoginPending,
-  } = useGoogleOAuthLogin();
-
   const form = useForm({
     defaultValues: {
       email: "abirhasan5208@gmail.com",
@@ -77,33 +71,32 @@ export default function LoginForm() {
         },
         {
           onSuccess: (data) => {
+            console.log("Login successful:", data);
+
             toast.add({
               title: "Login Successful",
               description: "You have successfully logged in.",
               type: "success",
             });
 
-            console.log("Login successful:", data);
-
             router.push("/");
           },
 
           onError: (error) => {
+            console.error("Login failed:", error);
+
             toast.add({
               title: "Login Failed",
               description:
                 "Invalid email or password. Please try again.",
               type: "error",
             });
-
-            console.error("Login failed:", error);
           },
         },
       );
     },
   });
 
-  
   // Demo Account Login
   const handleDemoLogin = (
     email: string,
@@ -116,106 +109,34 @@ export default function LoginForm() {
       },
       {
         onSuccess: (data) => {
+          console.log("Demo login successful:", data);
+
           toast.add({
             title: "Login Successful",
             description: "Demo account login successful.",
             type: "success",
           });
 
-          console.log("Demo login successful:", data);
-
           router.push("/");
         },
 
         onError: (error) => {
+          console.error("Demo login failed:", error);
+
           toast.add({
             title: "Login Failed",
             description:
               "Unable to login with this demo account.",
             type: "error",
           });
-
-          console.error("Demo login failed:", error);
         },
       },
     );
   };
-
- 
-  // Google Login Success
-
-  const handleGoogleLoginSuccess = (credentialResponse: {
-    credential?: string;
-  }) => {
-    const tokenId = credentialResponse.credential;
-
-    if (!tokenId) {
-      toast.add({
-        title: "Google Login Failed",
-        description:
-          "No credential received from Google.",
-        type: "error",
-      });
-
-      return;
-    }
-
-    googleLogin(
-      {
-        googleId: tokenId,
-      },
-      {
-        onSuccess: (data) => {
-          toast.add({
-            title: "Google Login Successful",
-            description:
-              "You have successfully logged in with Google.",
-            type: "success",
-          });
-
-          console.log(
-            "Google Login successful:",
-            data,
-          );
-
-          router.push("/");
-        },
-
-        onError: (error) => {
-          toast.add({
-            title: "Google Login Failed",
-            description:
-              "An error occurred while trying to log in with Google.",
-            type: "error",
-          });
-
-          console.error(
-            "Google Login failed:",
-            error,
-          );
-        },
-      },
-    );
-  };
-
- 
-  // Google Login Error
-
-  const handleGoogleLoginError = () => {
-    toast.add({
-      title: "Google Login Failed",
-      description:
-        "An error occurred while trying to log in with Google.",
-      type: "error",
-    });
-  };
-
-  const isAnyLoginPending =
-    isLoginPending || isGoogleLoginPending;
 
   return (
     <div className="w-full">
-
+      {/* Login Form */}
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -231,8 +152,7 @@ export default function LoginForm() {
                 field.state.meta.isTouched &&
                 !field.state.meta.isValid;
 
-              const error =
-                field.state.meta.errors[0];
+              const error = field.state.meta.errors[0];
 
               return (
                 <Field data-invalid={isInvalid}>
@@ -247,20 +167,16 @@ export default function LoginForm() {
                     value={field.state.value}
                     onBlur={field.handleBlur}
                     onChange={(e) =>
-                      field.handleChange(
-                        e.target.value,
-                      )
+                      field.handleChange(e.target.value)
                     }
                     placeholder="Enter your email"
                     autoComplete="email"
                     aria-invalid={isInvalid}
-                    disabled={isAnyLoginPending}
+                    disabled={isLoginPending}
                   />
 
                   {isInvalid && error && (
-                    <FieldError
-                      errors={[error]}
-                    />
+                    <FieldError errors={[error]} />
                   )}
                 </Field>
               );
@@ -274,8 +190,7 @@ export default function LoginForm() {
                 field.state.meta.isTouched &&
                 !field.state.meta.isValid;
 
-              const error =
-                field.state.meta.errors[0];
+              const error = field.state.meta.errors[0];
 
               return (
                 <Field data-invalid={isInvalid}>
@@ -295,14 +210,12 @@ export default function LoginForm() {
                       value={field.state.value}
                       onBlur={field.handleBlur}
                       onChange={(e) =>
-                        field.handleChange(
-                          e.target.value,
-                        )
+                        field.handleChange(e.target.value)
                       }
                       placeholder="Enter your password"
                       autoComplete="current-password"
                       aria-invalid={isInvalid}
-                      disabled={isAnyLoginPending}
+                      disabled={isLoginPending}
                       className="pr-10"
                     />
 
@@ -310,7 +223,7 @@ export default function LoginForm() {
                       type="button"
                       variant="ghost"
                       size="icon"
-                      disabled={isAnyLoginPending}
+                      disabled={isLoginPending}
                       onClick={() =>
                         setShowPassword(
                           (visible) => !visible,
@@ -332,9 +245,7 @@ export default function LoginForm() {
                   </div>
 
                   {isInvalid && error && (
-                    <FieldError
-                      errors={[error]}
-                    />
+                    <FieldError errors={[error]} />
                   )}
                 </Field>
               );
@@ -345,7 +256,7 @@ export default function LoginForm() {
           <Button
             type="submit"
             className="w-full"
-            disabled={isAnyLoginPending}
+            disabled={isLoginPending}
           >
             {isLoginPending ? (
               <>
@@ -360,24 +271,9 @@ export default function LoginForm() {
       </form>
 
       {/* Google Login */}
+      <GoogleLoginButton />
 
-      <div className="mt-6 space-y-4">
-        <FieldSeparator>OR</FieldSeparator>
-
-        <div className="flex justify-center mt-4">
-          <GoogleLogin
-            onSuccess={
-              handleGoogleLoginSuccess
-            }
-            onError={handleGoogleLoginError}
-          />
-        </div>
-      </div>
-
-      {/* =========================
-          Demo Accounts
-      ========================== */}
-
+      {/* Demo Accounts */}
       <div className="mt-8 space-y-4">
         <div className="text-center">
           <p className="text-sm font-medium">
@@ -395,7 +291,7 @@ export default function LoginForm() {
               key={account.email}
               type="button"
               variant="outline"
-              disabled={isAnyLoginPending}
+              disabled={isLoginPending}
               onClick={() =>
                 handleDemoLogin(
                   account.email,
