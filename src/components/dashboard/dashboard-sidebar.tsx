@@ -1,6 +1,5 @@
-import * as React from "react"
+"use client";
 
- 
 import {
   Sidebar,
   SidebarContent,
@@ -12,75 +11,47 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 import Logo from "../shared/Logo";
+import { UserRole } from "@/types";
+import {
+  AdminRoutes,
+  CustomerRoutes,
+  TechnicianRoutes,
+  ZoneManagerRoutes,
+} from "@/routes";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-// This is sample data.
-const data = {
-  versions: ["1.0.1", "1.1.0-alpha", "2.0.0-beta1"],
-  navMain: [
-    {
-      title: "Management",
-      
-      items: [
-        {
-          title: "overview",
-          url: "/admin",
-        },
-        {
-          title: "",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Infrastructure",
-      url: "#",
-      items: [
-        {
-          title: "Zones",
-          url: "admin/zones",
-        },
-        {
-          title: "Substations",
-          url: "admin/substations",
-          isActive: true,
-        },
-        {
-          title: "Feeder",
-          url: "admin/feeder",
-          isActive: true,
-        },
-        {
-          title: "Areas",
-          url: "admin/areas",
-          isActive: true,
-        },
-         
-        
-      ],
-    },
-     
-  ],
-}
+const sidebarRouter = {
+  ADMIN: AdminRoutes,
+  CUSTOMER: CustomerRoutes,
+  TECHNICIAN: TechnicianRoutes,
+  ZONE_MANAGER: ZoneManagerRoutes,
+};
+export function DashboardSidebar({ role }: { role: UserRole }) {
+  const pathName = usePathname();
+  const routers = sidebarRouter[role];
 
-export function DashboardSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar {...props}>
+    <Sidebar>
       <SidebarHeader>
         <Logo size="sm" />
       </SidebarHeader>
       <SidebarContent>
         {/* We create a SidebarGroup for each parent. */}
-        {data.navMain.map((item) => (
+        {routers.map((item) => (
           <SidebarGroup key={item.title}>
             <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
                 {item.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton  isActive={item.isActive}>
-                      <a href={item.url}>{item.title}</a>
+                    <SidebarMenuButton
+                      render={<Link href={item.url} />}
+                      isActive={pathName === item.url}
+                    >
+                      {item.title}
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
@@ -91,5 +62,5 @@ export function DashboardSidebar({ ...props }: React.ComponentProps<typeof Sideb
       </SidebarContent>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }

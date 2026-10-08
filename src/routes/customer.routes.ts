@@ -3,7 +3,7 @@
 const prefix = "/customer";
 export const CustomerRoutes=   [
     {
-      title: "Management",
+      title: "tktk",
       
       items: [
         {

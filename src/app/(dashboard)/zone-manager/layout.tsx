@@ -5,8 +5,8 @@ import React from 'react'
 
 export default function layout({children}:{children: React.ReactNode}) {
   return (
-    < RoleGuard roles={["ADMIN"]}>
-      <DashboardShell {...({ role: 'ADMIN' } as const)}>
+    < RoleGuard roles={["ZONE_MANAGER"]}>
+      <DashboardShell {...({ role: 'ZONE_MANAGER' } as const)}>
         {children}
       </DashboardShell>
     </RoleGuard >
