@@ -8,22 +8,29 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { User } from "@/types";
- 
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "../ui/button";
+import { User } from "@/types";
 
-// import type { User } from "@/types/user-management";
+import UserActions from "./UserActions";
 
 interface UserTableProps {
   users: User[];
   isPending: boolean;
+
+  onView: (user: User) => void;
+  onSuspend: (user: User) => void;
+  onActivate: (user: User) => void;
+  onDelete: (user: User) => void;
 }
 
 export default function UserTable({
   users,
   isPending,
+  onView,
+  onSuspend,
+  onActivate,
+  onDelete,
 }: UserTableProps) {
   if (isPending) {
     return (
@@ -77,9 +84,7 @@ export default function UserTable({
                       />
                     ) : (
                       <span className="font-medium">
-                        {user.name
-                          .charAt(0)
-                          .toUpperCase()}
+                        {user.name.charAt(0).toUpperCase()}
                       </span>
                     )}
                   </div>
@@ -118,12 +123,12 @@ export default function UserTable({
                 </Badge>
               </TableCell>
 
-              {/* Auth */}
+              {/* Auth Provider */}
               <TableCell>
                 {user.authProvider}
               </TableCell>
 
-              {/* Verified */}
+              {/* Email Verification */}
               <TableCell>
                 {user.emailVerified ? (
                   <Badge variant="outline">
@@ -145,12 +150,13 @@ export default function UserTable({
 
               {/* Actions */}
               <TableCell className="text-right">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                >
-                  ...
-                </Button>
+                <UserActions
+                  user={user}
+                  onView={onView}
+                  onSuspend={onSuspend}
+                  onActivate={onActivate}
+                  onDelete={onDelete}
+                />
               </TableCell>
             </TableRow>
           ))}

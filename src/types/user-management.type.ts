@@ -61,3 +61,11 @@ export interface GetAllUsersResponse {
     };
   };
 }
+
+
+export interface GetUserByIdResponse {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: User;
+}
