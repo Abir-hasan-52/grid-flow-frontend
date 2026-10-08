@@ -7,21 +7,37 @@ import { useGetMe, useLogout } from "@/hooks";
 import { toast } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
-import { useGetArea } from "@/hooks/area.hook";
+
+import { UserRole } from "@/types";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 
 export default function Header() {
   const routes = [
     { name: "Home", url: "/" },
     { name: "About", url: "/about-us" },
   ];
+
+  const dashboardRoutes: Record<UserRole, string> = {
+    ADMIN: "/admin",
+    CUSTOMER: "/customer",
+    TECHNICIAN: "/technician",
+    ZONE_MANAGER: "/zone-manager",
+  };
   const router = useRouter();
+  const { setTheme } = useTheme();
   const { data, isLoading } = useGetMe();
   console.log(data);
-  // test area hook
-  // const {data: areaData,isLoading: isAreaLoading} = useGetArea();
-  // console.log(areaData)
   const { mutate: logout, isPending: isLogoutPending } = useLogout();
-  const  queryClient = useQueryClient();
+  const queryClient = useQueryClient();
+
+  const role: UserRole = !!data?.data && data?.data.role;
 
   const handleLogout = () => {
     logout(undefined, {
@@ -60,6 +76,14 @@ export default function Header() {
               {route.name}
             </Link>
           ))}
+          {role && (
+            <Link
+              href={dashboardRoutes[role]}
+              className="text-sm font-medium text-slate-700 transition-colors hover:text-green-500"
+            >
+              Dashboard
+            </Link>
+          )}
         </nav>
         <div>
           {!isLoading && !data && (
@@ -76,6 +100,26 @@ export default function Header() {
               {isLogoutPending ? "Logging out..." : "Logout"}
             </Button>
           )}
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              render={<Button variant="outline" size="icon" />}
+            >
+              <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+              <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+              <span className="sr-only">Toggle theme</span>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={() => setTheme("light")}>
+                Light
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setTheme("dark")}>
+                Dark
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setTheme("system")}>
+                System
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
     </header>
