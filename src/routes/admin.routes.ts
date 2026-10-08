@@ -2,7 +2,7 @@
 const prefix = "/admin";
 export const AdminRoutes=   [
     {
-      title: "Management",
+      title: "User Management",
       
       items: [
         {
@@ -10,8 +10,8 @@ export const AdminRoutes=   [
           url:  `${prefix}`,
         },
         {
-          title: "",
-          url: "#",
+          title: "Users",
+          url: `${prefix}/user-management`,
         },
       ],
     },
