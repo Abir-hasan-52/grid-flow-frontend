@@ -35,15 +35,15 @@ export default function RoleGuard({ children, roles }: RoleGuardProps) {
   if (isError || !user) {
     return <AuthLoading />;
   }
-  if (!isAuthorized) {
-    router.replace("/access-denied");
-    return <AccessDenied />;
-  }
+//   if (!isAuthorized) {
+//     router.replace("/access-denied");
+//     return <AccessDenied />;
+//   }
   if (isAuthorized) {
     return <>{children}</>;
   }
 
-  return <>{children}</>;
-// return <AccessDenied />;
+//   return <>{children}</>;
+return <AccessDenied />;
  
 }

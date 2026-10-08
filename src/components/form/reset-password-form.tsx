@@ -79,7 +79,7 @@ export default function ResetPasswordForm() {
           Email address is missing. Please request a new reset code.
         </p>
 
-        <Button asChild className="w-full">
+        <Button   className="w-full">
           <Link href="/forgot-password">Go to Forgot Password</Link>
         </Button>
       </div>
