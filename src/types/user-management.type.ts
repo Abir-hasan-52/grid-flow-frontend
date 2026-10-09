@@ -1,3 +1,5 @@
+ 
+import { SortOrder } from "./infrastructure.type";
 import { UserRole } from "./user.type";
 
 
@@ -14,7 +16,8 @@ export type UserSortBy =
   | "role"
   | "status";
 
-export type SortOrder = "asc" | "desc";
+ 
+// export type SortOrder = "asc" | "desc";
 
 export interface GetAllUsersQuery {
   page?: number;

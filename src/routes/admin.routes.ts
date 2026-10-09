@@ -20,8 +20,8 @@ export const AdminRoutes=   [
       url: "#",
       items: [
         {
-          title: "Zones",
-          url: `${prefix}/zones`,
+          title: "Infrastructure Overview",
+          url: `${prefix}/Infrastructure`,
         },
         {
           title: "Substations",

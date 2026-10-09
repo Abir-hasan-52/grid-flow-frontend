@@ -1,19 +1,18 @@
 import apiClient from "@/lib/apiClient";
 import type {
-  Area,
-  CreateAreaPayload,
-  GetAllAreasQuery,
-  GetAllAreasResponse,
-  UpdateAreaPayload,
+  CreateZonePayload,
+  GetAllZonesQuery,
+  GetAllZonesResponse,
+  UpdateZonePayload,
+  Zone,
 } from "@/types";
 
-function buildQuery(params?: GetAllAreasQuery) {
+function buildQuery(params?: GetAllZonesQuery) {
   const searchParams = new URLSearchParams();
 
   if (params?.page) searchParams.set("page", String(params.page));
   if (params?.limit) searchParams.set("limit", String(params.limit));
   if (params?.search) searchParams.set("search", params.search);
-  if (params?.feederId) searchParams.set("feederId", params.feederId);
   if (params?.sortBy) searchParams.set("sortBy", params.sortBy);
   if (params?.sortOrder) searchParams.set("sortOrder", params.sortOrder);
 
@@ -22,37 +21,37 @@ function buildQuery(params?: GetAllAreasQuery) {
   return query ? `?${query}` : "";
 }
 
-export function getAllAreas(params?: GetAllAreasQuery) {
-  return apiClient<GetAllAreasResponse>(
-    `/area/all-areas${buildQuery(params)}`,
+export function getAllZones(params?: GetAllZonesQuery) {
+  return apiClient<GetAllZonesResponse>(
+    `/zone/all-zones${buildQuery(params)}`,
   );
 }
 
-export function getAreaById(id: string) {
+export function getZoneById(id: string) {
   return apiClient<{
     success: boolean;
     statusCode: number;
     message: string;
-    data: Area;
-  }>(`/area/get-area/${id}`);
+    data: Zone;
+  }>(`/zone/get-zone/${id}`);
 }
 
-export function createArea(payload: CreateAreaPayload) {
-  return apiClient("/area/create-area", {
+export function createZone(payload: CreateZonePayload) {
+  return apiClient("/zone/create-zone", {
     method: "POST",
     body: JSON.stringify(payload),
   });
 }
 
-export function updateArea(id: string, payload: UpdateAreaPayload) {
-  return apiClient(`/area/update-area/${id}`, {
+export function updateZone(id: string, payload: UpdateZonePayload) {
+  return apiClient(`/zone/update-zone/${id}`, {
     method: "PATCH",
     body: JSON.stringify(payload),
   });
 }
 
-export function deleteArea(id: string) {
-  return apiClient(`/area/delete-area/${id}`, {
+export function deleteZone(id: string) {
+  return apiClient(`/zone/delete-zone/${id}`, {
     method: "DELETE",
   });
 }
