@@ -33,8 +33,8 @@ export const AdminRoutes=   [
           isActive: true,
         },
         {
-          title: "Feeder",
-          url: `${prefix}/feeder`,
+          title: "Job Posts",
+          url: `${prefix}/job-posts`,
           isActive: true,
         },
         {

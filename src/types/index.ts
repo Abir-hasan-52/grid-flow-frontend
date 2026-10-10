@@ -5,3 +5,5 @@ export * from "./user-management.type";
 export * from "./infrastructure.type";
 export * from "./dashboard.types";
 export * from "./announcement.type";
+export * from "./job-post.type";
+export * from "./technician-application.type";

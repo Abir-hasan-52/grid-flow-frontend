@@ -22,6 +22,7 @@ export default function Header() {
   const routes = [
     { name: "Home", url: "/" },
     { name: "About", url: "/about-us" },
+    {name:"Careers", url:"/careers"},
   ];
 
   const dashboardRoutes: Record<UserRole, string> = {
