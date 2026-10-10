@@ -34,8 +34,8 @@ const demoAccounts = [
   },
   {
     role: "Customer",
-    email: "customer1@gmail.com",
-    password: "customer123",
+    email: "abirhasan5208@gmail.com",
+    password: "Abir#1234",
   },
 ];
 

@@ -13,6 +13,10 @@ export const AdminRoutes=   [
           title: "Users",
           url: `${prefix}/user-management`,
         },
+        {
+            title: "Roles",
+            url: `${prefix}/roles`,
+        }
       ],
     },
     {
@@ -24,8 +28,8 @@ export const AdminRoutes=   [
           url: `${prefix}/Infrastructure`,
         },
         {
-          title: "Substations",
-          url: `${prefix}/substations`,
+          title: "Announcements",
+          url: `${prefix}/announcements`,
           isActive: true,
         },
         {

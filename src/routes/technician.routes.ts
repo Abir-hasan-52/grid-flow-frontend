@@ -11,8 +11,8 @@ export const TechnicianRoutes=   [
           url:  `${prefix}`,
         },
         {
-          title: "",
-          url: "#",
+          title: "Announcements",
+          url: `${prefix}/announcements`,
         },
       ],
     },

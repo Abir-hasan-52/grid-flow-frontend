@@ -1,5 +1,5 @@
 
-const prefix = "/ zone-manager";
+const prefix = "/zone-manager";
 export const ZoneManagerRoutes=   [
     {
       title: "Management",
@@ -10,8 +10,8 @@ export const ZoneManagerRoutes=   [
           url:  `${prefix}`,
         },
         {
-          title: "",
-          url: "#",
+          title: "Announcements",
+          url: `${prefix}/announcements`,
         },
       ],
     },

@@ -11,8 +11,8 @@ export const CustomerRoutes=   [
           url:  `${prefix}`,
         },
         {
-          title: "",
-          url: "#",
+          title: "Announcements",
+          url: `${prefix}/announcements`,
         },
       ],
     },
