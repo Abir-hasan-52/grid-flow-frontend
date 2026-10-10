@@ -46,6 +46,11 @@ export const AdminRoutes = [
         url: `${prefix}/outages`,
         isActive: true,
       },
+      {
+        title: "Load Shedding Schedules",
+        url: `${prefix}/schedules`,
+        isActive: true,
+      }
     ],
   },
 ];

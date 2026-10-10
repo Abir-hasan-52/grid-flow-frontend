@@ -24,8 +24,8 @@ export const ZoneManagerRoutes=   [
           url: `${prefix}/outages`,
         },
         {
-          title: "Substations",
-          url: `${prefix}/substations`,
+          title: "Load Shedding Schedules",
+          url: `${prefix}/schedules`,
           isActive: true,
         },
         {

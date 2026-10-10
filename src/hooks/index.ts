@@ -10,5 +10,5 @@ export * from "./use-admin-user.hook"
 export * from "./use-job-post.hook"
 export * from "./use-technician-application.hook"
 export * from "./use-outage.hook"
-
+export * from "./use-schedule.hook"
 
