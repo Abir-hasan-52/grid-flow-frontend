@@ -21,8 +21,8 @@ export const CustomerRoutes=   [
       url: "#",
       items: [
         {
-          title: "Zones",
-          url: `${prefix}/zones`,
+          title: "My Applications",
+          url: `${prefix}/my-applications`,
         },
         {
           title: "Substations",

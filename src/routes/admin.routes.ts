@@ -38,8 +38,8 @@ export const AdminRoutes=   [
           isActive: true,
         },
         {
-          title: "Areas",
-          url: `${prefix}/areas`,
+          title: "Technician Applications",
+          url: `${prefix}/technician-applications`,
           isActive: true,
         },
          

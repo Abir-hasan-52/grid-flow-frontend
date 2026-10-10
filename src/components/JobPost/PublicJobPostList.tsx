@@ -82,7 +82,12 @@ export default function PublicJobPostList() {
         <InfrastructurePagination meta={meta} onPageChange={setPage} />
       )}
 
-      <JobPostDetailDialog open={open} onOpenChange={setOpen} jobPost={viewing} />
+      <JobPostDetailDialog
+        open={open}
+        onOpenChange={setOpen}
+        jobPost={viewing}
+        showApplyButton
+      />
     </div>
   );
 }
