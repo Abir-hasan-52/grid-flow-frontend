@@ -29,8 +29,8 @@ const demoAccounts = [
   },
   {
     role: "Technician",
-    email: "technician_one@gmail.com",
-    password: "technician_one123",
+    email: "technician_two@gmail.com",
+    password: "technician_two123",
   },
   {
     role: "Customer",
