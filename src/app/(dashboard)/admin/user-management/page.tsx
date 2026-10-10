@@ -9,16 +9,13 @@ import {
   useSuspendUser,
 } from "@/hooks/user-management.hook";
 
-import type {
-  SortOrder,
-  User,
-  UserRole,
-  UserStatus,
-} from "@/types";
+import type { SortOrder, User, UserRole, UserStatus } from "@/types";
 import UserFilters from "@/components/user-management/UserFilters";
 import UserTable from "@/components/user-management/UserTable";
 import UserPagination from "@/components/user-management/UserPagination";
 import UserDetailsDialog from "@/components/user-management/UserDetailsDialog";
+import CreateAdminDialog from "@/components/UserManagement/CreateAdminDialog";
+import CreateZoneManagerDialog from "@/components/UserManagement/CreateZoneManagerDialog";
 
 export default function UserManagementPage() {
   const [page, setPage] = useState(1);
@@ -103,8 +100,10 @@ export default function UserManagementPage() {
 
   return (
     <div className="space-y-6">
-      {/*   Header
-       */}
+      <div className="flex gap-2">
+        <CreateAdminDialog />
+        <CreateZoneManagerDialog />
+      </div>
 
       <div>
         <h1 className="text-2xl font-bold tracking-tight">User Management</h1>

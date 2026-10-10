@@ -6,5 +6,5 @@ export * from "./use-zone.hook"
 export * from "./use-substation.hook"
 export * from "./use-dashboard.hook"
 export * from "./use-announcement.hook"
-
+export * from "./use-admin-user.hook"
 

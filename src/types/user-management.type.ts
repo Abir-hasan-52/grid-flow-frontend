@@ -72,3 +72,25 @@ export interface GetUserByIdResponse {
   message: string;
   data: User;
 }
+
+export interface CreateAdminPayload {
+  name: string;
+  email: string;
+}
+
+export interface CreateZoneManagerPayload {
+  name: string;
+  email: string;
+  managedZoneId: string;
+}
+
+export interface CreatedUser {
+  id: string;
+  name: string;
+  email: string;
+  role: "ADMIN" | "ZONE_MANAGER" | "TECHNICIAN" | "CUSTOMER";
+  status: "ACTIVE" | "SUSPENDED" | "DELETED";
+  managedZoneId?: string | null;
+  emailVerified: boolean;
+  createdAt: string;
+}
