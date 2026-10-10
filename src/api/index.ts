@@ -10,4 +10,4 @@ export * from "./announcement.api"
 export * from "./admin-user.api"
 export * from "./job-post.api"
 export * from "./technician-application.api"
-
+export * from "./outage.api"

@@ -25,8 +25,8 @@ export const CustomerRoutes=   [
           url: `${prefix}/my-applications`,
         },
         {
-          title: "Substations",
-          url: `${prefix}/substations`,
+          title: "Outages",
+          url: `${prefix}/outages`,
           isActive: true,
         },
         {

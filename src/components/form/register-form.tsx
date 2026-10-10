@@ -21,8 +21,8 @@ import {
 
 import { cn } from "@/lib/utils";
 import { toast } from "../ui/toast";
-import { useRegisterUser } from "@/hooks";
-import { useGetArea } from "@/hooks/area.hook";
+import { useGetAllAreas, useRegisterUser } from "@/hooks";
+// import { useGetArea } from "@/hooks/area.hook";
 import { registerSchema } from "@/validation";
 import GoogleLoginButton from "../shared/GoogleLogin";
 // import { URLSearchParams } from "next/dist/compiled/@edge-runtime/primitives";
@@ -108,7 +108,7 @@ export default function RegisterForm() {
   const { mutate: register, isPending: isRegisterPending } = useRegisterUser();
 
   // Get Areas
-  const { data: areaResponse, isLoading: isAreasLoading } = useGetArea({
+  const { data: areaResponse, isLoading: isAreasLoading } = useGetAllAreas({
     search: debouncedAreaSearch,
   });
 

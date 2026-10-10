@@ -8,6 +8,7 @@ export * from "./use-dashboard.hook"
 export * from "./use-announcement.hook"
 export * from "./use-admin-user.hook"
 export * from "./use-job-post.hook"
-
-
 export * from "./use-technician-application.hook"
+export * from "./use-outage.hook"
+
+

@@ -20,8 +20,8 @@ export const ZoneManagerRoutes=   [
       url: "#",
       items: [
         {
-          title: "Zones",
-          url: `${prefix}/zones`,
+          title: "Outages",
+          url: `${prefix}/outages`,
         },
         {
           title: "Substations",

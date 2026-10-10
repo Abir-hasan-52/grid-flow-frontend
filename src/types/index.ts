@@ -7,3 +7,4 @@ export * from "./dashboard.types";
 export * from "./announcement.type";
 export * from "./job-post.type";
 export * from "./technician-application.type";
+export * from "./outage.type";
