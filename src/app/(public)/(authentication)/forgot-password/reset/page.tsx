@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import Logo from "@/components/shared/Logo";
 import ResetPasswordForm from "@/components/form/reset-password-form";
+import { Suspense } from "react";
 
 export default function ResetPasswordPage() {
   return (
@@ -25,9 +26,9 @@ export default function ResetPasswordPage() {
                 a new password.
               </p>
             </div>
-
+            <Suspense fallback={<div className="h-64 w-full animate-pulse rounded-lg bg-muted/50" />}> 
             <ResetPasswordForm />
-
+              </Suspense>
             <p className="text-center text-sm text-muted-foreground">
               Remember your password?{" "}
               <Link

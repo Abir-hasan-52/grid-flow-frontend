@@ -76,7 +76,7 @@ export default function VerifyAccountForm() {
           </CardDescription>
         </CardHeader>
         <CardFooter>
-          <Button asChild className="w-full">
+          <Button   className="w-full">
             <Link href="/register">Go to Register</Link>
           </Button>
         </CardFooter>
